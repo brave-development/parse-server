@@ -14,8 +14,8 @@ if (!databaseUri) {
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://heroku_s172qkgq:k60iv8kj6p7r0371kg58thdair@ds059165.mlab.com:59165/heroku_s172qkgq',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  appId: process.env.APP_ID || 'PANICING-TURTLE',
-  masterKey: process.env.MASTER_KEY || 'PANICINGTURTLE3847TR386TB281XN1NY7YNXM', //Add your master key here. Keep it secret!
+  appId: process.env.APP_ID || 'PILOT-PANICING-TURTLE',
+  masterKey: process.env.MASTER_KEY || 'PILOTPANICINGTURTLE3847TR386TB281XN1NY7YNXM', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Messages", "PanicGroup"] // List of classes to support for query subscriptions
@@ -23,7 +23,7 @@ var api = new ParseServer({
 
   // Email verification and password reset
   verifyUserEmails: false,
-  publicServerURL: 'https://panicing-turtle.herokuapp.com/parse',
+  publicServerURL: 'https://pilot-panicing-turtle.herokuapp.com/parse',
   appName: 'Panicing Turtle',
   // emailAdapter: { 
   //   module: 'parse-server-simple-mailgun-adapter',
