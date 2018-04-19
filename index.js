@@ -18,7 +18,7 @@ var api = new ParseServer({
   masterKey: process.env.MASTER_KEY || 'PILOTPANICINGTURTLE3847TR386TB281XN1NY7YNXM', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
-    classNames: ["Messages", "PanicGroup"] // List of classes to support for query subscriptions
+    classNames: ["Alerts", "Messages", "PanicGroup"] // List of classes to support for query subscriptions
   },
 
   // Email verification and password reset
