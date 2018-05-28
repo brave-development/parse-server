@@ -99,9 +99,11 @@ Parse.Cloud.define("pushFromId", function(req, resp) {
   var installationId = request.params.installationId
   var objectId = request.params.objectId;
 
-  var query = new Parse.Query("Panics");
+  var query = new Parse.Query("Alerts");
   query.equalTo('objectId', objectId);
   query.include('user');
+
+  console.log(objectId);
 
   query.find({
     useMasterKey: true,
@@ -137,6 +139,7 @@ Parse.Cloud.define("pushFromId", function(req, resp) {
       }
     },
     error: function() {
+      console.log(error);
       response.error(error);
     }
   });
@@ -325,7 +328,7 @@ function sendRespPushForChatMsg(name, text, messageId, allRespFirebaseIds) {
 
 
 Parse.Cloud.job("cleanPanics", function(request, response) {
-    var query = new Parse.Query("Panics");
+    var query = new Parse.Query("Alerts");
     var d = new Date();
     var numberOfHoursAgo = 24
 

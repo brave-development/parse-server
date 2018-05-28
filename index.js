@@ -12,7 +12,7 @@ if (!databaseUri) {
 }
 
 var api = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://heroku_s172qkgq:k60iv8kj6p7r0371kg58thdair@ds059165.mlab.com:59165/heroku_s172qkgq',
+  databaseURI: databaseUri || 'mongodb://heroku_jhmgbkth:vnvfra2k564scslt5pnh4ej8jo@ds215089.mlab.com:15089/heroku_jhmgbkth',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'PILOT-PANICING-TURTLE',
   masterKey: process.env.MASTER_KEY || 'PILOTPANICINGTURTLE3847TR386TB281XN1NY7YNXM', //Add your master key here. Keep it secret!
