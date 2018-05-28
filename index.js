@@ -20,6 +20,13 @@ var api = new ParseServer({
   liveQuery: {
     classNames: ["Alerts", "Messages", "PanicGroup"] // List of classes to support for query subscriptions
   },
+  push: {
+    ios: {
+      pfx : __dirname + "/Production.p12",
+      topic : "ly.brave.brave-app",
+      production : true
+    }
+  },
 
   // Email verification and password reset
   verifyUserEmails: false,
