@@ -108,6 +108,8 @@ Parse.Cloud.define("pushFromId", function(req, resp) {
   query.find({
     useMasterKey: true,
     success: function(result) {
+      console.log("IN SUCCESS");
+
       var panicObject = result[0]
 
       var user = getUser(panicObject)
@@ -124,6 +126,7 @@ Parse.Cloud.define("pushFromId", function(req, resp) {
 
       // finished(groups[2].toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).replace(/\s/g,''));
 
+      console.log("BEFORE FOR LOOP");
       for (var i = 0; i < groups.length; ++i) {
         getInstallationIDs(installationId, groups[i], function(IDs) {
           allIDs = Object.assign(allIDs, IDs);
@@ -255,6 +258,8 @@ function getInstallationIDs(installationId, channel, callback) {
 
 function sendPush(IDs, user, location, objectId) {
 
+  console.log("IN SENDPUSH");
+
   var name = user.get('name');
   var number = user.get('cellNumber');
 
@@ -267,7 +272,7 @@ function sendPush(IDs, user, location, objectId) {
       url: 'https://fcm.googleapis.com/fcm/send',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-        'Authorization': 'key=AAAAiT43N9A:APA91bE-DrOG3GhiwvvzJGdlEBpFgpwHomp51n7ZNo8Bx-T4yHrdSIiCbE4MHkEHruC_jzcQ6tsYRfVS4jWYuSdd9_F6uU1_3jreYpmazsPXao7a0RjqO-UeWMa8StZeyxV1MuPVfpeX'
+        'Authorization': 'key=AAAA3AfiYGc:APA91bEnlcrbJkW8A8dF__-Zv9kb4iSmEveNMwskdzZGi-OMMRV3eSDidDgBZkAqxBFckBL3tVkLOX5hhQbKCJDs6AiC1FtJ2pws_C6R-0xbQPigDJf-5tq9kezoKDnQHu-44M9P2SFW'
       },
       body: {
         "collapse_key": name,
@@ -287,6 +292,7 @@ function sendPush(IDs, user, location, objectId) {
         registration_ids: IDs
     }
     }).then(function(httpResponse) {
+      console.log(httpResponse);
       response.success('Sent!');
     }, function(httpResponse) {
       response.error(error);
