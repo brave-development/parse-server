@@ -120,26 +120,28 @@ Parse.Cloud.define("pushFromId", function(req, resp) {
         response.error('No groups');
       }
 
-      var groupsCheckedCounter = 0;
+      sendPush(user, location, objectId);
 
-      var allIDs = {};
+      // var groupsCheckedCounter = 0;
+
+      // var allIDs = {};
 
       // finished(groups[2].toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).replace(/\s/g,''));
 
-      console.log("BEFORE FOR LOOP");
-      for (var i = 0; i < groups.length; ++i) {
-        getInstallationIDs(installationId, groups[i], function(IDs) {
-          allIDs = Object.assign(allIDs, IDs);
-          groupsCheckedCounter++;
+      // console.log("BEFORE FOR LOOP");
+      // for (var i = 0; i < groups.length; ++i) {
+      //   getInstallationIDs(installationId, groups[i], function(IDs) {
+      //     allIDs = Object.assign(allIDs, IDs);
+      //     groupsCheckedCounter++;
 
-          if (groupsCheckedCounter == groups.length) {
-            finished(Object.keys(allIDs));
-            var keys = Object.keys(allIDs);
+      //     if (groupsCheckedCounter == groups.length) {
+      //       finished(Object.keys(allIDs));
+      //       var keys = Object.keys(allIDs);
 
-            sendPush(keys, user, location, objectId);
-          }
-        });
-      }
+      //       sendPush(keys, user, location, objectId);
+      //     }
+      //   });
+      // }
     },
     error: function() {
       console.log(error);
@@ -256,7 +258,36 @@ function getInstallationIDs(installationId, channel, callback) {
   });
 }
 
-function sendPush(IDs, user, location, objectId) {
+function sendPush(user, location, objectId) {
+  var name = user.get('name');
+  var number = user.get('cellNumber');
+
+  var latitude = location['latitude'];
+  var longitude = location['longitude'];
+
+  var installationQuery = new Parse.Query(Parse.Installation);
+  installationQuery.containsAll("channels", ["PilotGroup"]);
+
+  Parse.Push.send({
+    where: installationQuery,
+    'data': {
+      'title': name + ' needs your help!',
+      "alert": 'Open the app to contact them (' + number + ') or to view their location on a map',
+      'sound': 'default',
+      "lat": latitude,
+      "lng": longitude,
+      "objectId": objectId,
+      'type': 'newAlert',
+
+    }
+  }, { useMasterKey: true }).then(() => {
+    console.log("NEW ALERT PUSH SENT");
+  }, (e) => {
+    console.log(e);
+  });
+}
+
+function sendPush_OLD(IDs, user, location, objectId) {
 
   console.log("IN SENDPUSH");
 
