@@ -121,27 +121,6 @@ Parse.Cloud.define("pushFromId", function(req, resp) {
       }
 
       sendPush(user, location, objectId);
-
-      // var groupsCheckedCounter = 0;
-
-      // var allIDs = {};
-
-      // finished(groups[2].toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).replace(/\s/g,''));
-
-      // console.log("BEFORE FOR LOOP");
-      // for (var i = 0; i < groups.length; ++i) {
-      //   getInstallationIDs(installationId, groups[i], function(IDs) {
-      //     allIDs = Object.assign(allIDs, IDs);
-      //     groupsCheckedCounter++;
-
-      //     if (groupsCheckedCounter == groups.length) {
-      //       finished(Object.keys(allIDs));
-      //       var keys = Object.keys(allIDs);
-
-      //       sendPush(keys, user, location, objectId);
-      //     }
-      //   });
-      // }
     },
     error: function() {
       console.log(error);
@@ -278,57 +257,15 @@ function sendPush(user, location, objectId) {
       "lng": longitude,
       "objectId": objectId,
       'type': 'newAlert',
-
     }
   }, { useMasterKey: true }).then(() => {
     console.log("NEW ALERT PUSH SENT");
+    response.success('Alert Sent!');
   }, (e) => {
     console.log(e);
+    response.error('Alert Sent!');
   });
 }
-
-function sendPush_OLD(IDs, user, location, objectId) {
-
-  console.log("IN SENDPUSH");
-
-  var name = user.get('name');
-  var number = user.get('cellNumber');
-
-  var latitude = location['latitude'];
-  var longitude = location['longitude'];
-
-
-  Parse.Cloud.httpRequest({
-      method: 'POST',
-      url: 'https://fcm.googleapis.com/fcm/send',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        'Authorization': 'key=AAAA3AfiYGc:APA91bEnlcrbJkW8A8dF__-Zv9kb4iSmEveNMwskdzZGi-OMMRV3eSDidDgBZkAqxBFckBL3tVkLOX5hhQbKCJDs6AiC1FtJ2pws_C6R-0xbQPigDJf-5tq9kezoKDnQHu-44M9P2SFW'
-      },
-      body: {
-        "collapse_key": name,
-        priority: 'high',
-        notification: {
-          title: name + ' needs your help!',
-          body: 'Open the app to contact them (' + number + ') or to view their location on a map',
-          icon: 'ic_stat_healing',
-          sound: 'default'
-        },
-        data: {
-          "lat": latitude,
-          "lng": longitude,
-          "objectId": objectId,
-          type : 'newAlert'
-        },
-        registration_ids: IDs
-    }
-    }).then(function(httpResponse) {
-      console.log(httpResponse);
-      response.success('Sent!');
-    }, function(httpResponse) {
-      response.error(error);
-  });
-};
 
 function sendRespPushForChatMsg(name, text, messageId, allRespFirebaseIds) {
   log(messageId);

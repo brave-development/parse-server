@@ -25,6 +25,11 @@ var api = new ParseServer({
       pfx : __dirname + "/Production.p12",
       topic : "ly.brave.brave-app",
       production : true
+    },
+    ios: {
+      pfx : __dirname + "/Development.p12",
+      topic : "ly.brave.brave-app",
+      production : false
     }
   },
 
