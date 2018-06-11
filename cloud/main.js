@@ -249,7 +249,7 @@ function sendPush(user, location, objectId) {
 
   Parse.Push.send({
     where: installationQuery,
-    'data': {
+    data: {
       'title': name + ' needs your help!',
       "alert": 'Open the app to contact them (' + number + ') or to view their location on a map',
       'sound': 'default',
