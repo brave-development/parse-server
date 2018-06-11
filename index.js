@@ -32,7 +32,7 @@ var api = new ParseServer({
       production : false
     },
     android: {
-      apiKey:"AIzaSyDobKjxUZM7i5FS8zlZQpz3uCJ6Wjnxaq4"
+      apiKey:"AIzaSyDnzIcsQef4iyHr6eI5eKNHZQFtrg4mygs"
     }
   },
 
