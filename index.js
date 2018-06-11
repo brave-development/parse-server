@@ -30,6 +30,9 @@ var api = new ParseServer({
       pfx : __dirname + "/Development.p12",
       topic : "ly.brave.brave-app",
       production : false
+    },
+    android: {
+      apiKey:"AIzaSyDobKjxUZM7i5FS8zlZQpz3uCJ6Wjnxaq4"
     }
   },
 
